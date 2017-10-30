@@ -24,7 +24,7 @@ input_tensor = Input(shape=(224, 224, 3))
 vgg19_model = VGG19(include_top=False, weights='imagenet', input_tensor=input_tensor)
 for layer in vgg19_model.layers[:9]: # default 15
   layer.trainable = False
-x = vgg19_model.layers[-1].output 
+x = vgg19_model.layers[-2].output 
 x = Dropout(0.35)(x)
 x = Flatten()(x)
 x = Dense(5000, activation='relu')(x)
@@ -37,7 +37,7 @@ def train():
   for i in range(1000):
     print('now iter {} load pickled dataset...'.format(i))
     Xs,ys = [],[]
-    names = [name for idx, name in enumerate( glob.glob('../../../sdb/dataset/*.pkl') )]
+    names = [name for idx, name in enumerate( glob.glob('./dataset/*.pkl') )]
     random.shuffle( names )
     for idx, name in enumerate(names):
       try:
@@ -46,7 +46,7 @@ def train():
         continue
       if idx%100 == 0:
         print('now scan iter', idx)
-      if idx >= 6000:
+      if idx >= 300:
         break
       Xs.append( X )
       ys.append( y )
