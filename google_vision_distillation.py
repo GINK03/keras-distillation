@@ -7,7 +7,7 @@ from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers.normalization import BatchNormalization as BN
 from keras.layers.core import Dropout
-from keras.applications.vgg16 import VGG16 
+from keras.applications.vgg19 import VGG19
 from keras.applications.resnet50 import ResNet50
 import numpy as np
 import os
@@ -30,15 +30,14 @@ x = Flatten()(x)
 x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
-model = Model(inputs=vgg16_model.input, outputs=x)
+model = Model(inputs=vgg19_model.input, outputs=x)
 model.compile(loss='binary_crossentropy', optimizer='adam')
 
 def train():
   for i in range(1000):
     print('now iter {} load pickled dataset...'.format(i))
-    Xs = []
-    ys = []
-    names = [name for idx, name in enumerate( glob.glob('../../sdb/dataset/*.pkl') )]
+    Xs,ys = [],[]
+    names = [name for idx, name in enumerate( glob.glob('../../../sdb/dataset/*.pkl') )]
     random.shuffle( names )
     for idx, name in enumerate(names):
       try:
