@@ -8,6 +8,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.layers.normalization import BatchNormalization as BN
 from keras.layers.core import Dropout
 from keras.applications.vgg19 import VGG19
+from keras.applications.vgg16 import VGG16
 from keras.applications.resnet50 import ResNet50
 import numpy as np
 import os
@@ -21,16 +22,16 @@ import numpy as np
 import json
 
 input_tensor = Input(shape=(224, 224, 3))
-vgg19_model = VGG19(include_top=False, weights='imagenet', input_tensor=input_tensor)
-for layer in vgg19_model.layers[:9]: # default 15
+vgg_model = VGG19(include_top=False, weights='imagenet', input_tensor=input_tensor)
+for layer in vgg_model.layers[:9]: # default 15
   layer.trainable = False
-x = vgg19_model.layers[-2].output 
+x = vgg_model.layers[-1].output 
 x = Dropout(0.35)(x)
 x = Flatten()(x)
 x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
-model = Model(inputs=vgg19_model.input, outputs=x)
+model = Model(inputs=vgg_model.input, outputs=x)
 model.compile(loss='binary_crossentropy', optimizer='adam')
 
 def train():
@@ -46,7 +47,7 @@ def train():
         continue
       if idx%100 == 0:
         print('now scan iter', idx)
-      if idx >= 300:
+      if idx >= 3000:
         break
       Xs.append( X )
       ys.append( y )
