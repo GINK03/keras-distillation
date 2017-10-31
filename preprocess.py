@@ -67,8 +67,14 @@ if '--make_pkl' in sys.argv:
       continue
 
     save_name = 'dataset/{}.pkl'.format(img_name.split('/').pop() )
+    if os.path.exists(save_name):
+      continue
     json_name = 'vision/{}.json'.format(img_name.split('/').pop() )
-    obj = json.loads( open(json_name).read() )
+    try:
+      obj = json.loads( open(json_name).read() )
+    except FileNotFoundError as e:
+      continue
+
     description_score = {}
     try:
       for o in obj['responses'][0]['labelAnnotations']:
@@ -99,9 +105,10 @@ if '--make_pkl' in sys.argv:
       index = desc_index.get(desc)
       if index is None:
         continue
-      y[index] = float(score)
+      #y[index] = float(score)
+      y[index] = 1.0
     y = np.array(y)
     print(X.shape)
     print(y.shape)
     print(y)
-
+    open(save_name,'wb').write( pickle.dumps( (X, y) ) )
