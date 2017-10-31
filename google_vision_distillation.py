@@ -27,7 +27,8 @@ vgg_model = VGG19(include_top=False, weights='imagenet', input_tensor=input_tens
 for layer in vgg_model.layers[:9]: # default 15
   layer.trainable = False
 x = vgg_model.layers[-1].output 
-x = BN()(x)
+#x = BN()(x)
+x = Dropout(0.4)(x)
 x = Flatten()(x)
 x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
@@ -66,13 +67,11 @@ def train():
 
     Xs = np.array( Xs )
     ys = np.array( ys )
-    # change to inv logit
-    ys = np.exp(ys) / (1.0 + np.exp(ys))
-    # 10.0する...
+    # 100.0*する...
     ys = ys * 10.0
     print( Xs.shape )
     print( ys.shape )
-    model.fit(Xs, ys, batch_size=16, epochs=3 )
+    model.fit(Xs, ys, batch_size=16, epochs=4 )
     print('now iter {} '.format(i))
     del Xs
     del ys
