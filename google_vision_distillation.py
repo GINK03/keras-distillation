@@ -23,20 +23,20 @@ import numpy as np
 import json
 
 input_tensor = Input(shape=(224, 224, 3))
-vgg16_model = VGG19(include_top=False, weights='imagenet', input_tensor=input_tensor)
-for layer in vgg16_model.layers[:12]: # default 15
+vgg_model = VGG19(include_top=False, weights='imagenet', input_tensor=input_tensor)
+for layer in vgg_model.layers[:9]: # default 15
   layer.trainable = False
-x = vgg16_model.layers[-1].output 
+x = vgg_model.layers[-1].output 
 x = Flatten()(x)
 x = BN()(x)
 x = Dense(5000, activation='relu')(x)
-x = Dropout(0.3)(x)
+x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
-model = Model(input=vgg16_model.input, output=x)
+model = Model(input=vgg_model.input, output=x)
 model.compile(loss='binary_crossentropy', optimizer='adam')
 
 def train():
-  num =-1
+  num = -1
   try:
     ''' 古いデータからリカバー '''
     latest_file = sorted(glob.glob('models/*.h5') ).pop()
