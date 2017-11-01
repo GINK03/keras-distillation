@@ -29,7 +29,9 @@ DeepLearning界の大御所のHinton先生の論文によると、モデルは�
 - KL Divergenceではなく、Binary Cross Entropyを利用（Epoch 180時点においてこちらの方が表現力が良かった）  
 - 事前に90万枚に対してGoogle Cloud Vision APIでデータセットを作成し、Distillationで使うデータセットに変換
 
-
+## 参考文献
+- [ディープラーニングと著作物](https://system.jpaa.or.jp/patent/viewPdf/2741)
+- [Distilling the Knowledge in a Neural Network](https://www.cs.toronto.edu/%7Ehinton/absps/distillation.pdf)
 
 
 
