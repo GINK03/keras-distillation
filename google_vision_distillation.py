@@ -28,12 +28,13 @@ for layer in vgg_model.layers[:9]: # default 15
   layer.trainable = False
 x = vgg_model.layers[-1].output 
 x = Flatten()(x)
-x = BN()(x)
+x = Dropout(0.35)(x)
 x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
 model = Model(input=vgg_model.input, output=x)
-model.compile(loss='binary_crossentropy', optimizer='adam')
+model.compile(loss='kullback_leibler_divergence', optimizer='adam')
+#model.compile(loss='binary_crossentropy', optimizer='adam')
 
 def train():
   num = -1
@@ -54,8 +55,8 @@ def train():
     print('now iter {} load pickled dataset...'.format(i))
     Xs,ys = [],[]
     names = glob.glob('./dataset/*.pkl')
-    random.shuffle( names )
-    for idx, name in enumerate(names):
+    #random.shuffle( names )
+    for idx, name in enumerate( random.sample(names, 5000) ):
       if idx%100 == 0:
         print('now scan iter', idx)
       if len(Xs) >= 5000:
