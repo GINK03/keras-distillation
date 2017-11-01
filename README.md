@@ -17,6 +17,16 @@ DeepLearning界の大御所のHinton先生の論文によると、モデルは�
 
 (重要な、仕組みはいくつかあるのですが、KL Divergenceという目的関数の作り方と、softmaxを逆算して値を出すことがポイントな気がしています)  
 
+イメージするモデル
+
+## 実験環境
+- PEXELという写真のデータセット90万枚を利用
+- 特徴しては5000個の頻出する特徴を利用
+- KL Divergenceではなく、Binary Cross Entropyを利用（Epoch 180時点においてこちらの方が表現力が良かった）  
+- 事前に90万枚に対してGoogle Cloud Vision APIでデータセットを作成し、Distillationで使うデータセットに変換
+
+- モデルのイメージ
+
 
 
 
