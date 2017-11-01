@@ -21,6 +21,7 @@ DeepLearning界の大御所のHinton先生の論文によると、モデルは�
 <div align="center">
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/32262340-71c10378-bf17-11e7-9be0-f86fdf42de69.png">
 </div>
+<div align="center"> 図1. </div>
 
 ## 実験環境
 - PEXELという写真のデータセット90万枚を利用
