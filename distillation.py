@@ -24,25 +24,29 @@ import json
 
 input_tensor = Input(shape=(224, 224, 3))
 vgg_model = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
-for layer in vgg_model.layers[:5]: # default 15
-  layer.trainable = False
+#for layer in vgg_model.layers[:2]: # default 15
+#  layer.trainable = False
 x = vgg_model.layers[-1].output 
 x = Flatten()(x)
-x = BN()(x)
+#x = BN()(x)
 x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
-model = Model(input=vgg_model.input, output=x)
-#model.compile(loss='kullback_leibler_divergence', optimizer='adam')
+model = Model(inputs=vgg_model.input, outputs=x)
 model.compile(loss='binary_crossentropy', optimizer='adam')
 
 def train():
   num = -1
+  gpu = os.environ.get('CUDA_VISIBLE_DEVICES')
+  if gpu is None:
+    gpu = '0'
+  print('Using GPU numnber is', gpu)
   try:
     ''' 古いデータからリカバー '''
-    latest_file = sorted(glob.glob('models/*.h5') ).pop()
-    num = int( re.search(r'\d{1,}', latest_file).group(0) )
-    model.load_weights(latest_fi9le)
+    latest_file = sorted(glob.glob('models{}/*.h5'.format(gpu)) ).pop()
+    num = int( re.search(r'(\d{1,}).h5', latest_file).group(1) )
+    print('load')
+    model.load_weights(latest_file)
     print('loaded model', latest_file, num)
   except Exception as e:
     if str(e) != 'pop from empty list':
@@ -54,7 +58,7 @@ def train():
       continue
     print('now iter {} load pickled dataset...'.format(i))
     Xs,ys = [],[]
-    names = glob.glob('./dataset/*.pkl')
+    names = glob.glob('../image-free-download-scraper/dataset/*.pkl')
     #random.shuffle( names )
     for idx, name in enumerate( random.sample(names, 5000) ):
       if idx%100 == 0:
@@ -71,7 +75,8 @@ def train():
     print(ys)
     model.fit(Xs, ys, batch_size=16, epochs=1 )
     print('now iter {} '.format(i))
-    model.save_weights('models/{:09d}.h5'.format(i))
+    
+    model.save_weights('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i) )
 
 def pred():
   tag_index = json.loads(open('./tag_index.json', 'r').read())
@@ -84,7 +89,7 @@ def pred():
     ys.append(y)
   Xs,ys = np.array(Xs, dtype=np.float32),np.array(ys,dtype=np.float32)
   print(sys.argv)
-  use_model = sorted(glob.glob('models/*.h5'))[-1]
+  use_model = sorted(glob.glob('models1/*.h5'))[-1]
   print('use model', use_model)
   model.load_weights(use_model) 
   
