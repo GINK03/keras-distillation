@@ -77,6 +77,7 @@ def train():
     print('now iter {} '.format(i))
     
     model.save_weights('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i) )
+    os.remove('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i-1))
 
 def pred():
   tag_index = json.loads(open('./tag_index.json', 'r').read())
@@ -101,6 +102,7 @@ def pred():
   for i,w in sorted(result.items(), key=lambda x:x[1]*-1)[:30]:
     print("{name} tag={tag} prob={prob}, r".format(name=name, tag=index_tag[i], prob=w) )
   sys.exit()
+
 if __name__ == '__main__':
   if '--train' in sys.argv:
     train()
