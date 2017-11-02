@@ -23,12 +23,12 @@ import numpy as np
 import json
 
 input_tensor = Input(shape=(224, 224, 3))
-vgg_model = VGG19(include_top=False, weights='imagenet', input_tensor=input_tensor)
-for layer in vgg_model.layers[:9]: # default 15
+vgg_model = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
+for layer in vgg_model.layers[:5]: # default 15
   layer.trainable = False
 x = vgg_model.layers[-1].output 
 x = Flatten()(x)
-x = Dropout(0.35)(x)
+x = BN()(x)
 x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
@@ -42,7 +42,7 @@ def train():
     ''' 古いデータからリカバー '''
     latest_file = sorted(glob.glob('models/*.h5') ).pop()
     num = int( re.search(r'\d{1,}', latest_file).group(0) )
-    model.load_weights(latest_file)
+    model.load_weights(latest_fi9le)
     print('loaded model', latest_file, num)
   except Exception as e:
     if str(e) != 'pop from empty list':
@@ -69,12 +69,12 @@ def train():
     print( Xs.shape )
     print( ys.shape )
     print(ys)
-    model.fit(Xs, ys, batch_size=16, epochs=2 )
+    model.fit(Xs, ys, batch_size=16, epochs=1 )
     print('now iter {} '.format(i))
     model.save_weights('models/{:09d}.h5'.format(i))
 
 def pred():
-  tag_index = json.loads(open('./desc_index.json', 'r').read())
+  tag_index = json.loads(open('./tag_index.json', 'r').read())
   index_tag = { index:tag for tag, index in tag_index.items() }
   Xs,ys = [],[]
   for name in filter(lambda x: '.pkl' in x, sys.argv):
