@@ -61,10 +61,8 @@ def train():
         print('now scan iter', idx)
       if len(Xs) >= 5000:
         break
-      try:
-        X,y = pickle.loads(open(name,'rb').read() ) 
-      except EOFError as e:
-        continue
+      
+      X,y = pickle.loads( open(name,'rb').read() ) 
       Xs.append( X )
       ys.append( y )
 
