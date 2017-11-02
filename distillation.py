@@ -24,11 +24,11 @@ import json
 
 input_tensor = Input(shape=(224, 224, 3))
 vgg_model = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
-#for layer in vgg_model.layers[:2]: # default 15
-#  layer.trainable = False
+for layer in vgg_model.layers[:6]: # default 15
+  layer.trainable = False
 x = vgg_model.layers[-1].output 
 x = Flatten()(x)
-#x = BN()(x)
+x = BN()(x)
 x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
@@ -64,8 +64,12 @@ def train():
       if idx%100 == 0:
         print('now scan iter', idx)
       
-      X,y = pickle.loads( open(name,'rb').read() ) 
+      try:
+        X,y = pickle.loads( open(name,'rb').read() ) 
+      except EOFError as e:
+        continue
       Xs.append( X )
+      #print(y)
       ys.append( y )
 
     Xs = np.array( Xs, dtype=np.float32 )
@@ -77,7 +81,10 @@ def train():
     print('now iter {} '.format(i))
     
     model.save_weights('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i) )
-    os.remove('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i-1))
+    try:
+      os.remove('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i-1))
+    except FileNotFoundError as e:
+      ...
 
 def pred():
   tag_index = json.loads(open('./tag_index.json', 'r').read())
