@@ -33,8 +33,8 @@ x = Dense(5000, activation='relu')(x)
 x = Dropout(0.35)(x)
 x = Dense(5000, activation='sigmoid')(x)
 model = Model(input=vgg_model.input, output=x)
-model.compile(loss='kullback_leibler_divergence', optimizer='adam')
-#model.compile(loss='binary_crossentropy', optimizer='adam')
+#model.compile(loss='kullback_leibler_divergence', optimizer='adam')
+model.compile(loss='binary_crossentropy', optimizer='adam')
 
 def train():
   num = -1
@@ -59,8 +59,6 @@ def train():
     for idx, name in enumerate( random.sample(names, 5000) ):
       if idx%100 == 0:
         print('now scan iter', idx)
-      if len(Xs) >= 5000:
-        break
       
       X,y = pickle.loads( open(name,'rb').read() ) 
       Xs.append( X )
