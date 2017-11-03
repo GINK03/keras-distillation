@@ -91,9 +91,9 @@ $ python3 google_vision.py --minimize
 export GOOGLE=AIzaSyDpuzmfCIAZPzug69****************
 ```
 **Google Visionによりなんのタグがどの程度の確率でつくか計算し、結果をjsonで保存**
-``console
+```console
 $ python3 google_vision.py --scan
-``
+```
 
 ## 学習
 任意のデータセットを224x244にして255でノーマライズした状態Yvと、タグ情報のベクトルXvでタプルを作ります  
