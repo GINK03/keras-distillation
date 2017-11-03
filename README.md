@@ -74,8 +74,26 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 
 また、分布を真似するというタスクの制約からか、分布を似せようとしてくるので、必然的に頻出回数が多いSitiationに一致していまします。こういう時は単純な力技でデータ増やすこと汎化させているのですが、今回は100万枚を超えるデータセットが必要で大変データ集めに苦労しました（１０万枚具体で見積もっていたら全然うまくいかなくて焦りました。。。）  
 
-
-
+## データセットを集める
+pixabayなどをスクレイピングしたスクレイパーが入っているgithubのプロジェクトです  
+pixabayはデフォルトではタグ情報がロシア語であってちょっと扱いにくいのですが、これはこれで何かできそうです
+(leveldbやBeautifulSoupなどの依存が必要です)  
+**スクレイピング**
+```console
+$ python3 pixabay_downloader.py
+```
+**Google Visonが認識できるサイズにリサイズする**
+```console
+$ python3 google_vision.py --minimize
+```
+**GCPのGoogle Visionのキーを環境変数に反映させる(Pythonのスクリプトが認証に使用します)**
+```console
+export GOOGLE=AIzaSyDpuzmfCIAZPzug69****************
+```
+**Google Visionによりなんのタグがどの程度の確率でつくか計算し、結果をjsonで保存**
+``console
+$ python3 google_vision.py --scan
+``
 
 ## 学習
 任意のデータセットを224x244にして255でノーマライズした状態Yvと、タグ情報のベクトルXvでタプルを作ります  
