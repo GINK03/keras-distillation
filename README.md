@@ -52,6 +52,21 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 スナップショットして250epoch時点の結果を載せる  
 まだ計算すれば性能は上がりそうである  
 
+<div align="center">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364114-5ea366aa-c0b6-11e7-8bdd-47ccd34c4357.png">
+</div>
+<div> 図2. </div>
+
+<div align="center">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364115-5eca4158-c0b6-11e7-839c-485a6716cfdf.png">
+</div>
+<div> 図3. </div>
+
+<div align="center">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364116-5ef1eeec-c0b6-11e7-9164-e6531552a337.png">
+</div>
+<div> 図4. </div>
+
 
 ## 参考文献
 - [ディープラーニングと著作物](https://system.jpaa.or.jp/patent/viewPdf/2741)
