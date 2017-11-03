@@ -23,6 +23,8 @@ DeepLearning界の大御所のHinton先生の論文によると、モデルは�
 </div>
 <div align="center"> 図1. クローン対象のモデルをブラックボックスとして、任意のモデルで近似する </div>
 
+論文などによると、人間が真偽値を0,1で与えるのではなく、機械学習のモデルの出力値である 0.0 ~ 1.0までの連続値を与えることで、蒸留の対象もととなるモデルの癖や特徴量の把握の仕方まで仔細にクローンできるので効率的なのだそうです　　
+
 ## 実験環境
 - pixabox.comという写真のデータセット200万枚を利用
 - 特徴しては5000個の頻出する特徴を利用
@@ -55,17 +57,22 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 <div align="center">
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364114-5ea366aa-c0b6-11e7-8bdd-47ccd34c4357.png">
 </div>
-<div> 図2. </div>
+<div align="center"> 図2. 雪山の山脈 </div>
 
 <div align="center">
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364115-5eca4158-c0b6-11e7-839c-485a6716cfdf.png">
 </div>
-<div> 図3. </div>
+<div align="center"> 図3. ビーチと人と馬（馬が検出できていない）　</div>
 
 <div align="center">
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364116-5ef1eeec-c0b6-11e7-9164-e6531552a337.png">
 </div>
-<div> 図4. </div>
+<div align="center"> 図4. 荒野のライオン </div>
+
+## 学習時の注意点
+膨大な検証と試行錯誤を行なったのですが、KL Divを最小化するのもいいですが、Binary Cross Entropyの最小化でもどうにかなります  
+
+また、分布を真似するというタスクの制約からか、分布を似せようとしてくるので、必然的に頻出回数が多いSitiationに一致していまします。こういう時は単純な力技でデータ増やすこと汎化させているのですが、今回は100万枚を超えるデータセットが必要で大変データ集めに苦労しました（１０万枚具体で見積もっていたら全然うまくいかなくて焦りました。。。）  
 
 
 ## 参考文献
