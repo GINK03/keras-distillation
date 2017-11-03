@@ -1,4 +1,4 @@
-# Kerasを使ったDistillation(蒸留)
+# Kerasを使ったGoole VisionサービスのDistillation(蒸留)
 
 ## Vision APIをVGGで蒸留する
 Vision APIの出力は実はタグの値を予想する問題でしかない 
@@ -75,6 +75,18 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 また、分布を真似するというタスクの制約からか、分布を似せようとしてくるので、必然的に頻出回数が多いSitiationに一致していまします。こういう時は単純な力技でデータ増やすこと汎化させているのですが、今回は100万枚を超えるデータセットが必要で大変データ集めに苦労しました（１０万枚具体で見積もっていたら全然うまくいかなくて焦りました。。。）  
 
 
+
+
+## 学習
+任意のデータセットを224x244にして255でノーマライズした状態Yvと、タグ情報のベクトルXvでタプルを作ります  
+タプルをpickleでシリアライズしてgzipで圧縮したファイル一つが一つの画像のデータセットになります  
+```python
+one_data = gzip.compress( pickle.dumps( (X, y) ) )
+```
+任意のデータセットでこのフォーマットが成り立つものをdatasetのディレクトリに納めていただき、次のコマンドで実行します  
+```python
+$ python3 distillation.py --train
+```
 ## 参考文献
 - [ディープラーニングと著作物](https://system.jpaa.or.jp/patent/viewPdf/2741)
 - [Distilling the Knowledge in a Neural Network](https://www.cs.toronto.edu/%7Ehinton/absps/distillation.pdf)
