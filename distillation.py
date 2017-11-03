@@ -82,7 +82,7 @@ def train():
     
     model.save_weights('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i) )
     try:
-      os.remove('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i-1))
+      os.remove('models{gpu}/{i:09d}.h5'.format(gpu=gpu, i=i-2))
     except FileNotFoundError as e:
       ...
 
@@ -97,7 +97,7 @@ def pred():
     ys.append(y)
   Xs,ys = np.array(Xs, dtype=np.float32),np.array(ys,dtype=np.float32)
   print(sys.argv)
-  use_model = sorted(glob.glob('models1/*.h5'))[-1]
+  use_model = sorted(glob.glob('models0/*.h5'))[-1]
   print('use model', use_model)
   model.load_weights(use_model) 
   
@@ -107,7 +107,7 @@ def pred():
   print(ys.tolist()[0])
   result = { i:w for i,w in enumerate(result)}
   for i,w in sorted(result.items(), key=lambda x:x[1]*-1)[:30]:
-    print("{name} tag={tag} prob={prob}, r".format(name=name, tag=index_tag[i], prob=w) )
+    print("{name} tag={tag} prob={prob}, r".format(name=name, tag=index_tag[i].replace(' ', '-'), prob=w) )
   sys.exit()
 
 if __name__ == '__main__':
