@@ -94,6 +94,11 @@ export GOOGLE=AIzaSyDpuzmfCIAZPzug69****************
 ```console
 $ python3 google_vision.py --scan
 ```
+**学習に使用するデータセットを作ります**
+```console
+$ python3 --make_tag_index #<-タグ情報を作ります
+$ python3 --make_pair #<-学習に使用するデータセットを作ります
+```
 
 ## 学習
 任意のデータセットを224x244にして255でノーマライズした状態Yvと、タグ情報のベクトルXvでタプルを作ります  
@@ -102,9 +107,18 @@ $ python3 google_vision.py --scan
 one_data = gzip.compress( pickle.dumps( (X, y) ) )
 ```
 任意のデータセットでこのフォーマットが成り立つものをdatasetのディレクトリに納めていただき、次のコマンドで実行します  
-```python
+```console
 $ python3 distillation.py --train
 ```
+
+## 予想
+学習に使用したフォーマットを引数に指定して、predオプションをつけることで予想できます  
+```console
+$ python3 distillation.py --pred dataset/${WHAT_YOU_WANT_TO_PREDICT}.pkl
+...
+(タグの確率値が表示されます)
+```
+
 ## 参考文献
 - [ディープラーニングと著作物](https://system.jpaa.or.jp/patent/viewPdf/2741)
 - [Distilling the Knowledge in a Neural Network](https://www.cs.toronto.edu/%7Ehinton/absps/distillation.pdf)
