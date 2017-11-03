@@ -74,8 +74,15 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 
 また、分布を真似するというタスクの制約からか、分布を似せようとしてくるので、必然的に頻出回数が多いSitiationに一致していまします。こういう時は単純な力技でデータ増やすこと汎化させているのですが、今回は100万枚を超えるデータセットが必要で大変データ集めに苦労しました（１０万枚具体で見積もっていたら全然うまくいかなくて焦りました。。。）  
 
+## プロジェクトのコード
+[https://github.com/GINK03/keras-distillation:embed]
+
+## 学習済みのモデル
+minioの自宅サーバにおいておきます（常時起動している訳でないので、落ちてることもあります）
+[http://121.2.69.245:10002/minio/google-vision-distillation/keras-distillation/:embed]
+
 ## データセットを集める
-pixabayなどをスクレイピングしたスクレイパーが入っているgithubのプロジェクトです  
+[pixabayなどをスクレイピングしたスクレイパーが入っているgithubのプロジェクト](https://github.com/GINK03/image-free-download-scraper)です  
 pixabayはデフォルトではタグ情報がロシア語であってちょっと扱いにくいのですが、これはこれで何かできそうです
 (leveldbやBeautifulSoupなどの依存が必要です)  
 **スクレイピング**
