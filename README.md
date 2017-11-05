@@ -83,7 +83,9 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/32412616-ca63799e-c240-11e7-9780-ff4eae2a1932.png">
 </div>
 <div align="center"> 図7. 水と花の合成写真 </div>
-## 学習時の注意点
+
+## 学習時の注意点  
+
 膨大な検証と試行錯誤を行なったのですが、KL Divを最小化するのもいいですが、Binary Cross Entropyの最小化でもどうにかなります  
 
 また、分布を真似するというタスクの制約からか、分布を似せようとしてくるので、必然的に頻出回数が多いSitiationに一致していまします。こういう時は単純な力技でデータ増やすこと汎化させているのですが、今回は100万枚を超えるデータセットが必要で大変データ集めに苦労しました（１０万枚具体で見積もっていたら全然うまくいかなくて焦りました。。。）  
