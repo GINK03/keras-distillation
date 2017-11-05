@@ -92,6 +92,11 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 minioの自宅サーバにおいておきます（常時起動している訳でないので、落ちてることもあります）
 [http://121.2.69.245:10002/minio/google-vision-distillation/keras-distillation/:embed]
 
+### 使用した学習データセット
+
+[minimize.zip](http://121.2.69.245:10001/vision-distillation/minimize.zip)
+[vision.zip](http://121.2.69.245:10001/vision-distillation/vision.zip)
+
 ## データセットを集める
 [pixabayなどをスクレイピングしたスクレイパーが入っているgithubのプロジェクト](https://github.com/GINK03/image-free-download-scraper)です  
 pixabayはデフォルトではタグ情報がロシア語であってちょっと扱いにくいのですが、これはこれで何かできそうです
