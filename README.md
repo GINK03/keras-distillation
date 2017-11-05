@@ -95,7 +95,7 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 
 ## 学習済みのモデル
 minioの自宅サーバにおいておきます（常時起動している訳でないので、落ちてることもあります）
-[http://121.2.69.245:10002/minio/google-vision-distillation/keras-distillation/:embed]
+[models0][http://121.2.69.245:10002/minio/google-vision-distillation/keras-distillation/]
 
 ### 使用した学習データセット
 
