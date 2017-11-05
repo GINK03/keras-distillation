@@ -69,6 +69,11 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 </div>
 <div align="center"> 図4. 荒野のライオン </div>
 
+<div align="center">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32412410-7f5bb390-c23a-11e7-935c-93fa5800bde9.png">
+</div>
+<div align="center"> 図5. アステカのデザインパターン </div>
+
 ## 学習時の注意点
 膨大な検証と試行錯誤を行なったのですが、KL Divを最小化するのもいいですが、Binary Cross Entropyの最小化でもどうにかなります  
 
