@@ -1,4 +1,4 @@
-# Kerasを使ったGoole VisionサービスのDistillation(蒸留)
+# Kerasを使ったGoogle VisionサービスのDistillation(蒸留)
 
 ## Vision APIをVGGで蒸留する
 Vision APIの出力は実はタグの値を予想する問題でしかない 
