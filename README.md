@@ -67,9 +67,9 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 <div align="center"> 図3. ビーチと人と馬（馬が検出できていない）　</div>
 
 <div align="center">
-  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364116-5ef1eeec-c0b6-11e7-9164-e6531552a337.png">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32542304-7c252d6e-c4b5-11e7-881a-7da6024ea00f.png">
 </div>
-<div align="center"> 図4. 荒野のライオン </div>
+<div align="center"> 図4. ベトナムの夕日　</div>
 
 <div align="center">
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/32412410-7f5bb390-c23a-11e7-935c-93fa5800bde9.png">
