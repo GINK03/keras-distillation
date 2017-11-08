@@ -7,6 +7,8 @@ Vision APIの出力は実はタグの値を予想する問題でしかない
 
 例えば、Vision APIはメジャーなタグに限定すれば、5000個程度のタグの予想問題であり、5000個程度であればVGGを改良したモデルで近似できることを示す  
 
+(2017/11/08　データセットをスクリーニングして、問題のあるデータセット（一定の確率で特定のタグによってしまう）を排除したところ、だいぶ改善しました)
+
 ## 理論
 去年の今頃、話題になっていたテクノロジーで、モデルのクローンが行えるとされているものである。  
 Google VISION APIなどの入出力がわかれば、特定のデータセットを用意することで、何を入力したら、何が得られるかの対応が得られる 
@@ -55,9 +57,9 @@ model.compile(loss='binary_crossentropy', optimizer='adam')
 まだ計算すれば性能は上がりそうである  
 
 <div align="center">
-  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364114-5ea366aa-c0b6-11e7-8bdd-47ccd34c4357.png">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/32542082-e3e2eea6-c4b4-11e7-83cd-642a876b3bf6.png">
 </div>
-<div align="center"> 図2. 雪山の山脈 </div>
+<div align="center"> 図2. ざくろ </div>
 
 <div align="center">
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/32364115-5eca4158-c0b6-11e7-839c-485a6716cfdf.png">
