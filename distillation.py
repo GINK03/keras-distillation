@@ -21,7 +21,7 @@ import random
 import re
 import numpy as np
 import json
-
+from gzip import decompress
 input_tensor = Input(shape=(224, 224, 3))
 vgg_model = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
 for layer in vgg_model.layers[:6]: # default 15
@@ -65,7 +65,7 @@ def train():
         print('now scan iter', idx)
       
       try:
-        X,y = pickle.loads( open(name,'rb').read() ) 
+        X,y = pickle.loads( decompress(open(name,'rb').read()) ) 
       except EOFError as e:
         continue
       Xs.append( X )
@@ -92,7 +92,7 @@ def pred():
   Xs,ys = [],[]
   for name in filter(lambda x: '.pkl' in x, sys.argv):
     print(name)
-    X,y = pickle.loads(open(name,'rb').read() ) 
+    X,y = pickle.loads( decompress(open(name,'rb').read()) ) 
     Xs.append(X)
     ys.append(y)
   Xs,ys = np.array(Xs, dtype=np.float32),np.array(ys,dtype=np.float32)
